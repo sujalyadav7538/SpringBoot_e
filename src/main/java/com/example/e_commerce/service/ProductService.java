@@ -52,4 +52,22 @@ public class ProductService {
         }
         productRepo.deleteById(id);
     }
+
+    public List<Product> getProductByCategory(String category) {
+        Category type = categoryRepo.findByName(category);
+        System.out.printf(category,type);
+        
+        if (type == null) {
+            throw new RuntimeException("No category found with name: " + category);
+        }
+    
+        List<Product> products = productRepo.findByCategory(type);
+        
+        if (products == null || products.isEmpty()) {
+            throw new RuntimeException("No products found in category: " + category);
+        }
+    
+        return products;
+    }
+    
 }

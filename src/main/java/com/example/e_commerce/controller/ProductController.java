@@ -46,7 +46,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             productService.deleteProductById(id);
@@ -56,8 +56,13 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/test")
-    public String home() {
-        return "Hello from Product Controller!";
+    @GetMapping("/category/{category}")
+    public ResponseEntity<?> getProductByCategory(@PathVariable String category) {
+        try {
+            List<Product> products = productService.getProductByCategory(category);
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("No Product with Specific Category Exists: " +category+e.getMessage() );
+        }
     }
 }
