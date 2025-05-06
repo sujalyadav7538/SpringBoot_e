@@ -16,6 +16,11 @@ public class SeederRunner {
         CategoryRepo categoryRepo = context.getBean(CategoryRepo.class);
         ProductRepo productRepo = context.getBean(ProductRepo.class);
 
+        // === Empty Database First ===
+
+        categoryRepo.deleteAll();
+        productRepo.deleteAll();
+
         // === Create Categories ===
         Category electronics = new Category("Electronics");
         Category fashion = new Category("Fashion");
